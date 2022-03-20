@@ -12,4 +12,15 @@
     <string name="register">Register</string>
     <string name="re_type_password">Re-type Password</string>
     <string name="your_name">Full Name</string>
+    <string name="emergency_contacts">Emergency Contacts</string>
+    <string name="name">Name</string>
+    <string name="message">Message</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="textview">TextView</string>
+    <string name="textview">TextView</string>
+    <string name="edit">Edit</string>
+    <string name="set_default">Set Default</string>
+    <string name="ex_name">Ex Name</string>
+    <string name="ex_phone">Ex Phone</string>
+    <string name="ex_message">Ex Message</string>
 </resources>
