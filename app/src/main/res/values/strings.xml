@@ -3,12 +3,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="swipe_left_for_register">Swipe Left for Register</string>
     <string name="login">Login</string>
     <string name="password">Password</string>
     <string name="e_mail">Email</string>
     <string name="tag">Let\'s join us and \nBuild your relationship with others</string>
-    <string name="swipe_right_for_login">Swipe Right for Login</string>
     <string name="register">Register</string>
     <string name="re_type_password">Re-type Password</string>
     <string name="your_name">Full Name</string>
@@ -17,10 +15,12 @@
     <string name="message">Message</string>
     <string name="phone_number">Phone Number</string>
     <string name="textview">TextView</string>
-    <string name="textview">TextView</string>
     <string name="edit">Edit</string>
     <string name="set_default">Set Default</string>
     <string name="ex_name">Ex Name</string>
     <string name="ex_phone">Ex Phone</string>
     <string name="ex_message">Ex Message</string>
+    <string name="homepage_title">Press &amp; Hold for 3 seconds</string>
+    <string name="s_o_s">S.O.S</string>
+    <string name="button">Button</string>
 </resources>

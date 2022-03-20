@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".Homepage"
+            android:exported="false" />
+        <activity
             android:name=".Register"
             android:exported="false" />
         <activity
