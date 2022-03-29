@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginTop="60dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="50dp"
         android:fontFamily="@font/poppinsbold"
         android:text="@string/register"
         android:textAlignment="center"

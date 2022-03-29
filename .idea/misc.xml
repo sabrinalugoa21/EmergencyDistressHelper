@@ -3,6 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/tjdtj/OneDrive/Documents/GitHub/EmergencyDistressHelper/app/src/main/res/drawable/btn_custom.xml" value="0.183" />
+        <entry key="..\:/Users/tjdtj/OneDrive/Documents/GitHub/EmergencyDistressHelper/app/src/main/res/drawable/circle_btn.xml" value="0.183" />
+        <entry key="..\:/Users/tjdtj/OneDrive/Documents/GitHub/EmergencyDistressHelper/app/src/main/res/drawable/et_custom.xml" value="0.257" />
+        <entry key="..\:/Users/tjdtj/OneDrive/Documents/GitHub/EmergencyDistressHelper/app/src/main/res/layout/activity_homepage.xml" value="0.25679347826086957" />
+        <entry key="..\:/Users/tjdtj/OneDrive/Documents/GitHub/EmergencyDistressHelper/app/src/main/res/layout/activity_login.xml" value="0.33" />
+        <entry key="..\:/Users/tjdtj/OneDrive/Documents/GitHub/EmergencyDistressHelper/app/src/main/res/layout/activity_main.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/tjdtj/OneDrive/Documents/GitHub/EmergencyDistressHelper/app/src/main/res/layout/activity_register.xml" value="0.2515625" />
+        <entry key="..\:/Users/tjdtj/OneDrive/Documents/GitHub/EmergencyDistressHelper/app/src/main/res/menu/menu_main.xml" value="0.18802083333333333" />
         <entry key="app/src/main/res/drawable/circle_btn.xml" value="0.1645" />
       </map>
     </option>
