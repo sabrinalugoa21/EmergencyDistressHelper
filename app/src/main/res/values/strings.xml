@@ -23,4 +23,7 @@
     <string name="homepage_title">Press &amp; Hold for 3 seconds</string>
     <string name="s_o_s">S.O.S</string>
     <string name="button">Button</string>
+    <string name="add_contact">Add Contact</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
 </resources>
