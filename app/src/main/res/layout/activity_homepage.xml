@@ -20,7 +20,7 @@
         android:textSize="50sp" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button1"
+        android:id="@+id/sos_button"
         android:layout_width="208dp"
         android:layout_height="217dp"
         android:layout_marginLeft="110dp"

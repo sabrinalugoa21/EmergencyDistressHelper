@@ -1,11 +1,23 @@
 package com.example.emergencydistresshelper
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
+
 
 class Homepage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_homepage)
+
+        val sosButton = findViewById<Button>(R.id.sos_button)
+
+        sosButton.setOnLongClickListener {
+            val sosMessage = "Sending Text Message"
+            val sosSnackbar = Snackbar.make(sosButton, sosMessage, Snackbar.LENGTH_SHORT)
+            sosSnackbar.show()
+            return@setOnLongClickListener true
+        }
     }
 }
