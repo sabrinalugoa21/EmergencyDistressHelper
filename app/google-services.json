@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "282695220389",
+    "firebase_url": "https://emergdh-cdfdd-default-rtdb.firebaseio.com",
+    "project_id": "emergdh-cdfdd",
+    "storage_bucket": "emergdh-cdfdd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282695220389:android:0b2e46664f05946f18e14c",
+        "android_client_info": {
+          "package_name": "com.example.emergencydistresshelper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "282695220389-v2r81rg4u0mth4lknbehmnmpngqnrp40.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6FLAVIlo3g5Qfgrum9uvKT4asQPZeeEA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "282695220389-v2r81rg4u0mth4lknbehmnmpngqnrp40.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282695220389:android:aae5df2e8a35bf1218e14c",
+        "android_client_info": {
+          "package_name": "com.example.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "282695220389-v2r81rg4u0mth4lknbehmnmpngqnrp40.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6FLAVIlo3g5Qfgrum9uvKT4asQPZeeEA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "282695220389-v2r81rg4u0mth4lknbehmnmpngqnrp40.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
