@@ -52,4 +52,6 @@ dependencies {
 
     //Used for Twilio Text Messaging
     implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+
+    implementation 'com.google.android.gms:play-services-location:19.0.1'
 }

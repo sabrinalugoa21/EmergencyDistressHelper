@@ -13,10 +13,14 @@ public class TextMessage {
     private static final String AUTH_TOKEN = "";
     private static final String fromNumber = "+19205192974";
 
-    public static void sendTextMessage() {
+    public static String sendTextMessage(Double Latitude, Double Longitude) {
         //get number using getPhoneNumber() from Contact.java
         String toNumber = "";
         String messageBody = "EDH - Twilio SOS Button";
+        String Result = "ERROR! Alert not sent!";
+        messageBody = messageBody +
+                "\nLatitude: " + Latitude +
+                "\nLongitude: " + Longitude;
 
         OkHttpClient client = new OkHttpClient();
         String url = "https://api.twilio.com/2010-04-01/Accounts/" + ACCOUNT_SID + "/SMS/Messages";
@@ -38,6 +42,11 @@ public class TextMessage {
             Response response = client.newCall(request).execute();
             Log.d("TAG", "sendTextMessage: " + response.body().string());
         }
-        catch (IOException e) { e.printStackTrace();}
+        catch (IOException e) {
+            e.printStackTrace();
+            return Result;
+        }
+        Result = "Success! Alert was sent!";
+        return Result;
     }
 }
