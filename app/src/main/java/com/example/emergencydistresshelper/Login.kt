@@ -14,12 +14,14 @@ import com.google.firebase.auth.FirebaseAuth
 class Login : AppCompatActivity(), View.OnClickListener {
     private var editTextEmail: EditText? = null
     private var editTextPassword: EditText? = null
-    private var signIn: Button? = null
+    private var signinUser: Button? = null
     private var mAuth: FirebaseAuth? = null
     private var progressbar: ProgressBar? = null
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
+        getSupportActionBar()?.hide();
+
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
         val loginToreg = findViewById<Button>(R.id.loginToreg)
@@ -29,12 +31,12 @@ class Login : AppCompatActivity(), View.OnClickListener {
             startActivity(intent)
         }
 
-        signIn = findViewById<View>(R.id.signIn) as Button
-        signIn!!.setOnClickListener(this)
+        mAuth = FirebaseAuth.getInstance()
+        signinUser = findViewById<View>(R.id.signIn) as Button
+        signinUser!!.setOnClickListener(this)
         editTextEmail = findViewById<View>(R.id.email) as EditText
         editTextPassword = findViewById<View>(R.id.password) as EditText
         progressbar = findViewById<View>(R.id.progressBar) as ProgressBar
-        mAuth = FirebaseAuth.getInstance()
     }
 
     override fun onClick(v: View) {
