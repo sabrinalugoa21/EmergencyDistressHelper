@@ -1,6 +1,7 @@
 package com.example.emergencydistresshelper
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -26,6 +27,7 @@ class Homepage : AppCompatActivity() {
         setContentView(R.layout.activity_homepage)
 
         val sosButton = findViewById<Button>(R.id.sos_button)
+        val contactsButton = findViewById<Button>(R.id.btn_contacts_page)
 
         //needed for okhttp for Twilio Text Message
         StrictMode.setThreadPolicy(ThreadPolicy.Builder().permitAll().build())
@@ -38,6 +40,11 @@ class Homepage : AppCompatActivity() {
             sosSnackbar.show()
 
             return@setOnLongClickListener true
+        }
+
+        contactsButton.setOnClickListener {
+            val intent = Intent(this, Contacts::class.java)
+            startActivity(intent)
         }
     }
 

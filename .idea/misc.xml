@@ -3,17 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/tjdtj/OneDrive/Documents/GitHub/EmergencyDistressHelper/app/src/main/res/drawable/btn_custom.xml" value="0.183" />
-        <entry key="..\:/Users/tjdtj/OneDrive/Documents/GitHub/EmergencyDistressHelper/app/src/main/res/drawable/circle_btn.xml" value="0.183" />
-        <entry key="..\:/Users/tjdtj/OneDrive/Documents/GitHub/EmergencyDistressHelper/app/src/main/res/drawable/et_custom.xml" value="0.257" />
-        <entry key="..\:/Users/tjdtj/OneDrive/Documents/GitHub/EmergencyDistressHelper/app/src/main/res/layout/activity_contacts.xml" value="0.1175925925925926" />
-        <entry key="..\:/Users/tjdtj/OneDrive/Documents/GitHub/EmergencyDistressHelper/app/src/main/res/layout/activity_homepage.xml" value="0.25679347826086957" />
-        <entry key="..\:/Users/tjdtj/OneDrive/Documents/GitHub/EmergencyDistressHelper/app/src/main/res/layout/activity_login.xml" value="0.33" />
-        <entry key="..\:/Users/tjdtj/OneDrive/Documents/GitHub/EmergencyDistressHelper/app/src/main/res/layout/activity_main.xml" value="0.18802083333333333" />
-        <entry key="..\:/Users/tjdtj/OneDrive/Documents/GitHub/EmergencyDistressHelper/app/src/main/res/layout/activity_register.xml" value="0.2515625" />
-        <entry key="..\:/Users/tjdtj/OneDrive/Documents/GitHub/EmergencyDistressHelper/app/src/main/res/menu/menu_main.xml" value="0.18802083333333333" />
-        <entry key="app/src/main/res/drawable/circle_btn.xml" value="0.1645" />
-        <entry key="app/src/main/res/layout/activity_register.xml" value="0.15962371826171876" />
+        <entry key="..\:/Users/Gregory/Desktop/EmergencyDistressHelper/app/src/main/res/layout/activity_contact1.xml" value="0.1" />
+        <entry key="..\:/Users/Gregory/Desktop/EmergencyDistressHelper/app/src/main/res/layout/activity_contacts.xml" value="0.24547101449275363" />
+        <entry key="..\:/Users/Gregory/Desktop/EmergencyDistressHelper/app/src/main/res/layout/activity_contacts2.xml" value="0.1" />
+        <entry key="..\:/Users/Gregory/Desktop/EmergencyDistressHelper/app/src/main/res/layout/activity_create_contact.xml" value="0.264" />
+        <entry key="..\:/Users/Gregory/Desktop/EmergencyDistressHelper/app/src/main/res/layout/activity_create_contact2.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/Gregory/Desktop/EmergencyDistressHelper/app/src/main/res/layout/activity_homepage.xml" value="0.24547101449275363" />
+        <entry key="..\:/Users/Gregory/Desktop/EmergencyDistressHelper/app/src/main/res/layout/activity_login.xml" value="0.16458333333333333" />
+        <entry key="..\:/Users/Gregory/Desktop/EmergencyDistressHelper/app/src/main/res/layout/activity_main.xml" value="0.24547101449275363" />
+        <entry key="..\:/Users/Gregory/Desktop/EmergencyDistressHelper/app/src/main/res/layout/activity_register.xml" value="0.24547101449275363" />
+        <entry key="..\:/Users/tjdtj/OneDrive/Documents/GitHub/EmergencyDistressHelper/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.196" />
+        <entry key="..\:/Users/tjdtj/OneDrive/Documents/GitHub/EmergencyDistressHelper/app/src/main/res/drawable/btn_custom.xml" value="0.196" />
+        <entry key="..\:/Users/tjdtj/OneDrive/Documents/GitHub/EmergencyDistressHelper/app/src/main/res/drawable/ic_launcher_background.xml" value="0.196" />
+        <entry key="..\:/Users/tjdtj/OneDrive/Documents/GitHub/EmergencyDistressHelper/app/src/main/res/layout/activity_main.xml" value="0.3336422613531047" />
+        <entry key="..\:/Users/tjdtj/OneDrive/Documents/GitHub/EmergencyDistressHelper/app/src/main/res/layout/activity_register.xml" value="0.33" />
+        <entry key="..\:/Users/tjdtj/OneDrive/Documents/GitHub/EmergencyDistressHelper/app/src/main/res/layout/content_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tjdtj/OneDrive/Documents/GitHub/EmergencyDistressHelper/app/src/main/res/layout/fragment_first.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>
