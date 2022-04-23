@@ -43,21 +43,22 @@
         android:background="@drawable/et_custom"
         android:fontFamily="@font/roboto_regular"
         android:hint="@string/phone_number"
-        android:inputType="textEmailAddress"
+        android:inputType="phone"
         android:padding="15dp"
         android:textSize="15sp" />
 
     <EditText
         android:id="@+id/add_contact_message"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="271dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/et_custom"
         android:fontFamily="@font/roboto_regular"
         android:hint="@string/message"
-        android:inputType="textPassword"
+        android:gravity="start"
+        android:inputType="text|textMultiLine"
         android:padding="15dp"
         android:textSize="15sp" />
 

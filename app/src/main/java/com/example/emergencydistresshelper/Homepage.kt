@@ -43,7 +43,7 @@ class Homepage : AppCompatActivity() {
         }
 
         contactsButton.setOnClickListener {
-            val intent = Intent(this, Contacts::class.java)
+            val intent = Intent(this, CreateContact::class.java)
             startActivity(intent)
         }
     }

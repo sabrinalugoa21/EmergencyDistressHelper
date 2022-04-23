@@ -8,10 +8,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import java.util.regex.Pattern;
 
 public class CreateContact extends AppCompatActivity implements View.OnClickListener {
 
@@ -55,8 +58,14 @@ public class CreateContact extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.btn_add_contact:
                 addContact();
+                //startActivity(new Intent(this, Contacts.class));
                 break;
         }
+    }
+
+    // Method to determine if a phone number is valid
+    private boolean isValidMobile(String phone) {
+        return Pattern.matches("[0-9]{10,11}$", phone);
     }
 
     private void addContact() {
@@ -81,7 +90,7 @@ public class CreateContact extends AppCompatActivity implements View.OnClickList
         }
 
         // Validation to check if contact phone number matches expected phone number patterns
-        if(!(Patterns.PHONE.matcher(phone).matches())) {
+        if(!(isValidMobile(phone))) {
             editTextPhoneNumber.setError("Please provide valid phone number!");
             editTextPhoneNumber.requestFocus();
             return;
@@ -95,8 +104,23 @@ public class CreateContact extends AppCompatActivity implements View.OnClickList
             return;
         }
 
+        // Create new contact object and reference the
+        // user's contacts in the database
         Contact contact = new Contact(fullName, phone, message);
-        mDatabase.child("Users").child(user.getUid()).setValue(contact);
+        DatabaseReference userContactRef = mDatabase
+                .child("Users")
+                .child(user.getUid())
+                .child("Contacts");
+
+        // Get number of contacts the user already has
+        Task<DataSnapshot> numOfContactsTask = userContactRef.get();
+        while (!numOfContactsTask.isComplete());
+        long numOfContacts = numOfContactsTask.getResult().getChildrenCount();
+
+        // Add new contact for user in the database
+        userContactRef
+                .child(String.valueOf(numOfContacts))
+                .setValue(contact);
 
     }
 
