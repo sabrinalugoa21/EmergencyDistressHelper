@@ -60,9 +60,17 @@ class Homepage : AppCompatActivity() {
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             Log.d("-----findGPS", "Location permission NOT granted")
-            return
+            ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 10)
+            val errorMessage = "Please restart app for location to work properly"
+            val contextView = findViewById<Button>(R.id.sos_button)
+            val errorSnackbar = Snackbar.make(contextView, errorMessage, Snackbar.LENGTH_INDEFINITE)
+            errorSnackbar.show()
         }
-        Log.d("-----findGPS", "Location permission granted!")
+        else {
+            Log.d("-----findGPS", "Location permission granted!")
+        }
+
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location : Location? ->
                 // Got last known location. In some rare situations this can be null.
