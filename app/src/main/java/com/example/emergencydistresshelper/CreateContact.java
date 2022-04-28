@@ -2,7 +2,6 @@ package com.example.emergencydistresshelper;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,8 +50,8 @@ public class CreateContact extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.btn_cancel_contact:
                 startActivity(new Intent(this, Contacts.class));
                 break;
