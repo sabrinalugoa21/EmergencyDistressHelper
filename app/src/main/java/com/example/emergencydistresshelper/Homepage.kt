@@ -19,8 +19,8 @@ import com.google.android.material.snackbar.Snackbar
 class Homepage : AppCompatActivity() {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private var Latitude : Double = 0.0
-    private var Longitude : Double = 0.0
+    private var gpsLatitude : Double = 0.0
+    private var gpsLongitude : Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +35,7 @@ class Homepage : AppCompatActivity() {
         findGPS()
 
         sosButton.setOnLongClickListener {
-            val sosMessage = TextMessage.sendTextMessage(Latitude, Longitude)
+            val sosMessage = TextMessage.sendTextMessage(gpsLatitude, gpsLongitude)
             val sosSnackbar = Snackbar.make(sosButton, sosMessage, Snackbar.LENGTH_SHORT)
             sosSnackbar.show()
 
@@ -60,12 +60,7 @@ class Homepage : AppCompatActivity() {
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             Log.d("-----findGPS", "Location permission NOT granted")
-            ActivityCompat.requestPermissions(this,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 10)
-            val errorMessage = "Please restart app for location to work properly"
-            val contextView = findViewById<Button>(R.id.sos_button)
-            val errorSnackbar = Snackbar.make(contextView, errorMessage, Snackbar.LENGTH_INDEFINITE)
-            errorSnackbar.show()
+            return
         }
         else {
             Log.d("-----findGPS", "Location permission granted!")
@@ -75,11 +70,11 @@ class Homepage : AppCompatActivity() {
             .addOnSuccessListener { location : Location? ->
                 // Got last known location. In some rare situations this can be null.
                 if (location != null) {
-                    Latitude = location.latitude
-                    Longitude = location.longitude
+                    gpsLatitude = location.latitude
+                    gpsLongitude = location.longitude
                     Log.d("-----findGPS", "Lat and long found")
-                    Log.d("-----findGPS", "Latitude = $Latitude")
-                    Log.d("-----findGPS", "Longitude = $Longitude")
+                    Log.d("-----findGPS", "Latitude = $gpsLatitude")
+                    Log.d("-----findGPS", "Longitude = $gpsLongitude")
                 } else{
                     Log.d("-----findGPS", "returned NULL")
                 }
