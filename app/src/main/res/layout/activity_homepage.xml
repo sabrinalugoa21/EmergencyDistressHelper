@@ -11,8 +11,8 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="50dp"
         android:fontFamily="@font/poppinsbold"
         android:text="@string/homepage_title"
         android:textAlignment="center"
@@ -33,13 +33,28 @@
         android:id="@+id/tv_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp"
         android:fontFamily="@font/poppinsbold"
         android:text="Send the emergency signal to friends and family"
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="25sp" />
+
+    <Button
+        android:id="@+id/btn_contacts_page"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="0dp"
+        android:background="@drawable/btn_custom"
+        android:fontFamily="@font/roboto_regular"
+        android:text="@string/emergency_contacts"
+        android:textColor="@android:color/white" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,20 +62,6 @@
         android:orientation="vertical"
         android:gravity="center|bottom">
 
-        <Button
-            android:id="@+id/btn_contacts_page"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginRight="0dp"
-            android:layout_marginBottom="0dp"
-            android:background="@drawable/btn_custom"
-            android:fontFamily="@font/roboto_regular"
-            android:text="@string/emergency_contacts"
-            android:textColor="@android:color/white" />
     </LinearLayout>
 
 
