@@ -32,8 +32,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        getSupportActionBar().hide();
-
         mAuth = FirebaseAuth.getInstance();
 
         banner = (TextView) findViewById(R.id.tv_logo);
