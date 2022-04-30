@@ -20,7 +20,7 @@ import okhttp3.*;
 
 public class TextMessage {
     private static final String ACCOUNT_SID = "ACd51283a55fad386b1cadeb8e395fffff";
-    private static final String AUTH_TOKEN = "995ff32301c63fbd636b0e72b156fd1d";
+    private static final String AUTH_TOKEN = "";
     private static final String fromNumber = "+19205192974";
 
     private static String toNumber = "";
