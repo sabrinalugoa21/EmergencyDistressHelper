@@ -52,12 +52,16 @@ public class CreateContact extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+
+            // Go to the contacts page
             case R.id.btn_cancel_contact:
                 startActivity(new Intent(this, Contacts.class));
                 break;
+
+            // Add the contact, then navigate to the contacts page.
             case R.id.btn_add_contact:
                 addContact();
-                //startActivity(new Intent(this, Contacts.class));
+                startActivity(new Intent(this, Contacts.class));
                 break;
         }
     }

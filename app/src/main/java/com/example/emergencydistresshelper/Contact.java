@@ -3,10 +3,10 @@ package com.example.emergencydistresshelper;
 public class Contact {
 
     // Contact information
-    public String name;
-    public String phoneNumber;
-    public String message;
-    public boolean defaultContact;
+    private String name;
+    private String phoneNumber;
+    private String message;
+    private boolean defaultContact;
 
     // Constructor
     public Contact(String name, String phoneNumber, String message) {

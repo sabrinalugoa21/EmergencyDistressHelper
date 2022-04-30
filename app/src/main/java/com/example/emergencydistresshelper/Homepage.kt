@@ -27,7 +27,7 @@ class Homepage : AppCompatActivity() {
         setContentView(R.layout.activity_homepage)
 
         val sosButton = findViewById<Button>(R.id.sos_button)
-        val contactsButton = findViewById<Button>(R.id.btn_contacts_page)
+        val contactsButton = findViewById<Button>(R.id.btn_show_add_contact_page)
 
         //needed for okhttp for Twilio Text Message
         StrictMode.setThreadPolicy(ThreadPolicy.Builder().permitAll().build())
@@ -43,8 +43,7 @@ class Homepage : AppCompatActivity() {
         }
 
         contactsButton.setOnClickListener {
-            val intent = Intent(this, CreateContact::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, Contacts::class.java))
         }
     }
 
