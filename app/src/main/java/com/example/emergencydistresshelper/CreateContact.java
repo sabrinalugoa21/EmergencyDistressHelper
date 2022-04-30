@@ -120,6 +120,19 @@ public class CreateContact extends AppCompatActivity implements View.OnClickList
         while (!numOfContactsTask.isComplete());
         long numOfContacts = numOfContactsTask.getResult().getChildrenCount();
 
+
+        // If the user is adding a contact for the first time,
+        // it must be the default contact
+        DatabaseReference userRef = mDatabase
+                .child("Users")
+                .child(user.getUid());
+
+        if (numOfContacts == 0) {
+            userRef
+                    .child("defaultContactIndex")
+                    .setValue("0");
+        }
+
         // Add new contact for user in the database
         userContactRef
                 .child(String.valueOf(numOfContacts))

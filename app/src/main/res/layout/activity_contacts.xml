@@ -8,7 +8,7 @@
     tools:context=".Contacts">
 
     <TextView
-        android:id="@+id/txtEmergencyContacts"
+        android:id="@+id/text_emergency_contacts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -30,7 +30,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/txtContactsNameHeader"
+                android:id="@+id/contacts_name_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -39,7 +39,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/txtContactsPhoneHeader"
+                android:id="@+id/contacts_phone_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -48,7 +48,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/txtContactsMessageHeader"
+                android:id="@+id/contacts_message_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="15"
@@ -58,7 +58,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/contactsList"
+            android:id="@+id/contacts_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"/>
@@ -69,13 +69,19 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnContactsEdit"
+                android:id="@+id/btn_edit_contact"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/edit" />
 
             <Button
-                android:id="@+id/btnContactsSetDefault"
+                android:id="@+id/btn_set_default_contact_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_default" />
+
+            <Button
+                android:id="@+id/btn_set_default_contact_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/set_default" />

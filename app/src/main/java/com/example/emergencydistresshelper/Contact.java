@@ -6,14 +6,12 @@ public class Contact {
     private String name;
     private String phoneNumber;
     private String message;
-    private boolean defaultContact;
 
     // Constructor
     public Contact(String name, String phoneNumber, String message) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.message = message;
-        this.defaultContact = false;
     }
 
     // No-args constructor
@@ -21,7 +19,6 @@ public class Contact {
         this.name = "";
         this.phoneNumber = "";
         this.message = "";
-        this.defaultContact = false;
     }
 
     // Getter methods
@@ -37,10 +34,6 @@ public class Contact {
         return this.message;
     }
 
-    public boolean isDefaultContact() {
-        return this.defaultContact;
-    }
-
     // Setter methods
     public void setName(String name) {
         this.name = name;
@@ -52,9 +45,5 @@ public class Contact {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public void setIsDefaultContact(boolean isDefaultContact) {
-        this.defaultContact = isDefaultContact;
     }
 }

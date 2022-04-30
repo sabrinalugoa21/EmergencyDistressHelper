@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -16,12 +17,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import java.util.HashMap;
 import java.util.Hashtable;
 
 
 public class Contacts extends AppCompatActivity implements View.OnClickListener{
 
-    private TextView textViewName, textViewPhone, textViewMessage, addContact;
+    private TextView textViewName, textViewPhone, textViewMessage;
+    private TextView addContact, setDefault1, setDefault2;
     private FirebaseUser user;
     private DatabaseReference dbReference;
     private long numOfContacts;
@@ -34,6 +37,10 @@ public class Contacts extends AppCompatActivity implements View.OnClickListener{
 
         addContact = (Button) findViewById(R.id.btn_show_add_contact_page);
         addContact.setOnClickListener(this);
+        setDefault1 = (Button) findViewById(R.id.btn_set_default_contact_1);
+        setDefault1.setOnClickListener(this);
+        setDefault2 = (Button) findViewById(R.id.btn_set_default_contact_2);
+        setDefault2.setOnClickListener(this);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         dbReference = FirebaseDatabase
@@ -53,6 +60,14 @@ public class Contacts extends AppCompatActivity implements View.OnClickListener{
         switch (view.getId()) {
             case R.id.btn_show_add_contact_page:
                 startActivity(new Intent(this, CreateContact.class));
+                break;
+
+            case R.id.btn_set_default_contact_1:
+                updateDefault1();
+                break;
+
+            case R.id.btn_set_default_contact_2:
+                updateDefault2();
                 break;
         }
     }
@@ -86,10 +101,10 @@ public class Contacts extends AppCompatActivity implements View.OnClickListener{
     }
 
     private void makeContactRows() {
-        LinearLayout contactsListLL = (LinearLayout) findViewById(R.id.contactsList);
+        LinearLayout contactsListLL = (LinearLayout) findViewById(R.id.contacts_list);
         contactsListLL.removeAllViewsInLayout();
 
-        for (long i = 1; i <= numOfContacts; i++) {
+        for (long i = 0; i < numOfContacts; i++) {
             LinearLayout childLL = new LinearLayout(this);
             LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -132,7 +147,7 @@ public class Contacts extends AppCompatActivity implements View.OnClickListener{
         dbReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                int index = 1;
+                int index = 0;
                 for (DataSnapshot ds: snapshot.getChildren()) {
                     Contact contact = ds.getValue(Contact.class);
                     textViewName = (TextView) findViewById(hashtable.get("Name" + index));
@@ -152,6 +167,37 @@ public class Contacts extends AppCompatActivity implements View.OnClickListener{
 
             }
         });
+    }
 
+    public void updateDefault1() {
+        HashMap<String, Object> update = new HashMap<>();
+        update.put("defaultContactIndex", "0");
+
+        dbReference.getParent().updateChildren(update, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                if (error != null) {
+                    Log.d("Testing", "Failed to change default contact. " + error.getMessage());
+                } else {
+                    Log.d("Testing", "Successfully changed default contact!");
+                }
+            }
+        });
+    }
+
+    public void updateDefault2() {
+        HashMap<String, Object> update = new HashMap<>();
+        update.put("defaultContactIndex", "2");
+
+        dbReference.getParent().updateChildren(update, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                if (error != null) {
+                    Log.d("Testing", "Failed to change default contact. " + error.getMessage());
+                } else {
+                    Log.d("Testing", "Successfully changed default contact!");
+                }
+            }
+        });
     }
 }
