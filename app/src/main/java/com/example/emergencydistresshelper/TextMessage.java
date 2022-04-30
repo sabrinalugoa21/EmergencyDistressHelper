@@ -4,20 +4,44 @@ package com.example.emergencydistresshelper;
 import android.util.Base64;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.io.IOException;
 
 import okhttp3.*;
 
 public class TextMessage {
     private static final String ACCOUNT_SID = "ACd51283a55fad386b1cadeb8e395fffff";
-    private static final String AUTH_TOKEN = "";
+    private static final String AUTH_TOKEN = "995ff32301c63fbd636b0e72b156fd1d";
     private static final String fromNumber = "+19205192974";
 
+    private static String toNumber = "";
+    private static String messageBody = "EDH - Twilio SOS Button";
+    private static String default_index = "1000";
+    private static String Result = "ERROR! Alert not sent!";
+
+    private static FirebaseUser user;
+    private static DatabaseReference dbReference;
+
     public static String sendTextMessage(Double Latitude, Double Longitude) {
-        //get number using getPhoneNumber() from Contact.java
-        String toNumber = "";
-        String messageBody = "EDH - Twilio SOS Button";
-        String Result = "ERROR! Alert not sent!";
+        if (AUTH_TOKEN.length() < 25){
+            Result = "ERROR! Invalid Auth Token!";
+            return Result;
+        }
+
+        if (default_index.equals("1000")){
+            Result = "ERROR! No Default Contact!";
+            return Result;
+        }
+
         messageBody = messageBody +
                 "\nLatitude: " + Latitude +
                 "\nLongitude: " + Longitude;
@@ -48,5 +72,31 @@ public class TextMessage {
         }
         Result = "Success! Alert was sent!";
         return Result;
+    }
+
+    public static void update_number_and_message(){
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        dbReference = FirebaseDatabase
+                .getInstance()
+                .getReference("Users")
+                .child(user.getUid());
+
+
+        dbReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                default_index = snapshot.child("defaultContactIndex").getValue(String.class);
+                Log.d("default_index: ", default_index);
+                toNumber = "+1" + snapshot.child("Contacts/" + default_index + "/phoneNumber").getValue(String.class);
+                Log.d("toNumber: ", toNumber);
+                messageBody = snapshot.child("Contacts/" + default_index + "/message").getValue(String.class);
+                Log.d("messageBody: ", messageBody);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

@@ -138,6 +138,8 @@ public class CreateContact extends AppCompatActivity implements View.OnClickList
                 .child(String.valueOf(numOfContacts))
                 .setValue(contact);
 
+        TextMessage.update_number_and_message();
+
     }
 
 }
