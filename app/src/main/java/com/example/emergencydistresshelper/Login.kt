@@ -70,7 +70,7 @@ class Login : AppCompatActivity(), View.OnClickListener {
             return
         }
         if (password.length < 6) {
-            editTextPassword!!.error = "Min password length is 6 character!"
+            editTextPassword!!.error = "Min password length is 6 characters!"
             editTextPassword!!.requestFocus()
             return
         }

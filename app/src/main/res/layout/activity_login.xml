@@ -79,7 +79,7 @@
         android:layout_marginBottom="25dp"
         android:background="?android:attr/selectableItemBackground"
         android:fontFamily="@font/roboto_regular"
-        android:text="don't you have an account?"
+        android:text="don't have an account?"
         android:textColor="@android:color/black" />
 
     <ProgressBar

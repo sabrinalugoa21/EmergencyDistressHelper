@@ -42,6 +42,8 @@ public class Contacts extends AppCompatActivity implements View.OnClickListener{
                 .child(user.getUid())
                 .child("Contacts");
 
+        hashtable = new Hashtable<String, Integer>();
+
         updateContactsList();
 
     }
@@ -50,13 +52,12 @@ public class Contacts extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_show_add_contact_page:
-                startActivity(new Intent(this, Homepage.class));
+                startActivity(new Intent(this, CreateContact.class));
                 break;
         }
     }
 
     public void updateContactsList() {
-        hashtable = new Hashtable<String, Integer>();
         getNumOfContacts(value -> {
             numOfContacts = value;
             makeContactRows();
