@@ -33,6 +33,7 @@ class Homepage : AppCompatActivity() {
         StrictMode.setThreadPolicy(ThreadPolicy.Builder().permitAll().build())
 
         findGPS()
+        TextMessage.update_number_and_message()
 
         sosButton.setOnLongClickListener {
             val sosMessage = TextMessage.sendTextMessage(gpsLatitude, gpsLongitude)

@@ -85,12 +85,17 @@ public class TextMessage {
         dbReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                default_index = snapshot.child("defaultContactIndex").getValue(String.class);
-                Log.d("default_index: ", default_index);
-                toNumber = "+1" + snapshot.child("Contacts/" + default_index + "/phoneNumber").getValue(String.class);
-                Log.d("toNumber: ", toNumber);
-                messageBody = snapshot.child("Contacts/" + default_index + "/message").getValue(String.class);
-                Log.d("messageBody: ", messageBody);
+                if (snapshot.hasChild("defaultContactIndex")){
+                    default_index = snapshot.child("defaultContactIndex").getValue(String.class);
+                    Log.d("default_index: ", default_index);
+                    toNumber = "+1" + snapshot.child("Contacts/" + default_index + "/phoneNumber").getValue(String.class);
+                    Log.d("toNumber: ", toNumber);
+                    messageBody = snapshot.child("Contacts/" + default_index + "/message").getValue(String.class);
+                    Log.d("messageBody: ", messageBody);
+                }
+                else{
+                    Log.d("----update", "no defaultContactIndex");
+                }
             }
 
             @Override
