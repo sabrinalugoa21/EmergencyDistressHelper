@@ -32,12 +32,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 
 
 public class Contacts extends AppCompatActivity implements View.OnClickListener{
 
     private TextView textViewName, textViewPhone, textViewMessage;
-    private TextView addContact, setDefault1, setDefault2;
+    private TextView homeButton;
     private FirebaseUser user;
     private DatabaseReference dbReference;
     private long numOfContacts;
@@ -47,6 +48,7 @@ public class Contacts extends AppCompatActivity implements View.OnClickListener{
     LinearLayout hiddenView1;
     CardView cardView1;
 
+    private TextView addContact;
     private TextView editContact;
     private TextView changeDefaultContact;
     private TextView deleteContact;
@@ -57,6 +59,8 @@ public class Contacts extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts);
 
+        homeButton = (Button) findViewById(R.id.home_button);
+        homeButton.setOnClickListener(this);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         dbReference = FirebaseDatabase
@@ -78,11 +82,11 @@ public class Contacts extends AppCompatActivity implements View.OnClickListener{
 
         addContact = (Button) findViewById(R.id.btn_add_a_contact);
         addContact.setOnClickListener(this);
-        editContact = findViewById(R.id.btn_edit_a_contact);
+        editContact = (Button) findViewById(R.id.btn_edit_a_contact);
         editContact.setOnClickListener(this);
-        changeDefaultContact = findViewById(R.id.btn_change_default_contact);
+        changeDefaultContact = (Button) findViewById(R.id.btn_change_default_contact);
         changeDefaultContact.setOnClickListener(this);
-        deleteContact = findViewById(R.id.btn_delete_a_contact);
+        deleteContact = (Button) findViewById(R.id.btn_delete_a_contact);
         deleteContact.setOnClickListener(this);
 
 
@@ -91,6 +95,10 @@ public class Contacts extends AppCompatActivity implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.home_button:
+                startActivity(new Intent(this, Homepage.class));
+                break;
+
             case R.id.btn_add_a_contact:
                 startActivity(new Intent(this, CreateContact.class));
                 break;
@@ -100,7 +108,7 @@ public class Contacts extends AppCompatActivity implements View.OnClickListener{
                 break;
 
             case R.id.btn_edit_a_contact:
-                contactToEdit();
+                contactEditPage();
                 break;
 
             case R.id.btn_change_default_contact:
@@ -114,13 +122,12 @@ public class Contacts extends AppCompatActivity implements View.OnClickListener{
     }
 
 
-    public void contactToEdit() {
+    public void contactEditPage() {
+
+        // Create a popup AlertDialogue for user to enter contact name into
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Name of contact to edit:");
-
-        // Set up the input
         final EditText input = new EditText(this);
-        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
 
@@ -129,6 +136,46 @@ public class Contacts extends AppCompatActivity implements View.OnClickListener{
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 m_Text = input.getText().toString();
+
+                // Search the database for the contact the user wants to delete
+                dbReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Contact contact = null;
+                        int index = 0;
+                        boolean foundMatch = false;
+
+                        // Find the index of the contact which matches user input
+                        for (DataSnapshot ds: snapshot.getChildren()) {
+                            contact = ds.getValue(Contact.class);
+                            if (contact.getName().equals(m_Text)) {
+                                foundMatch = true;
+                                break;
+                            } else {
+                                index++;
+                            }
+                        }
+
+                        // Exit if no contact match for user input was found
+                        if (!foundMatch) {
+                            Toast.makeText(Contacts.this, "You have no contact matching that name!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        Intent intent = new Intent(Contacts.this, EditContact.class);
+                        intent.putExtra("name", contact.getName());
+                        intent.putExtra("phone", contact.getPhoneNumber());
+                        intent.putExtra("message", contact.getMessage());
+                        intent.putExtra("index", index);
+                        startActivity(intent);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.d("Log", "Failed to retrieve snapshot for dbReference");
+                    }
+                });
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -142,12 +189,11 @@ public class Contacts extends AppCompatActivity implements View.OnClickListener{
     }
 
     public void contactToDefault() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Name of contact to set as default:");
 
-        // Set up the input
+        // Create a popup AlertDialogue for user to enter contact name into
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Name of contact to default:");
         final EditText input = new EditText(this);
-        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
 
@@ -156,8 +202,56 @@ public class Contacts extends AppCompatActivity implements View.OnClickListener{
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 m_Text = input.getText().toString();
+
+                // Search the database for the contact the user wants to delete
+                dbReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Contact contact;
+                        int index = 0;
+                        boolean foundMatch = false;
+
+                        // Find the index of the contact which matches user input
+                        for (DataSnapshot ds: snapshot.getChildren()) {
+                            contact = ds.getValue(Contact.class);
+                            if (contact.getName().equals(m_Text)) {
+                                foundMatch = true;
+                                break;
+                            } else {
+                                index++;
+                            }
+                        }
+
+                        // Exit if no contact match for user input was found
+                        if (!foundMatch) {
+                            Toast.makeText(Contacts.this, "You have no contact matching that name!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        // Update the defaultContactIndex value in the database
+                        HashMap<String, Object> update = new HashMap<>();
+                        update.put("defaultContactIndex", String.valueOf(index));
+
+                        dbReference.getParent().updateChildren(update, new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                if (error != null) {
+                                    Toast.makeText(Contacts.this, "Failed to change default contact.", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(Contacts.this, "Successfully changed default contact!", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.d("Log", "Failed to retrieve snapshot for dbReference");
+                    }
+                });
             }
         });
+
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -189,15 +283,23 @@ public class Contacts extends AppCompatActivity implements View.OnClickListener{
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Contact contact;
                         int index = 0;
+                        boolean foundMatch = false;
 
                         // Find the index of the contact which matches user input
                         for (DataSnapshot ds: snapshot.getChildren()) {
                             contact = ds.getValue(Contact.class);
                             if (contact.getName().equals(m_Text)) {
+                                foundMatch = true;
                                 break;
                             } else {
                                 index++;
                             }
+                        }
+
+                        // Exit if no contact match for user input was found
+                        if (!foundMatch) {
+                            Toast.makeText(Contacts.this, "You have no contact matching that name!", Toast.LENGTH_SHORT).show();
+                            return;
                         }
 
                         // Check to see if the contact user wants to delete is the default contact
@@ -212,7 +314,7 @@ public class Contacts extends AppCompatActivity implements View.OnClickListener{
 
                                 } else {
 
-                                    // Delte the contact
+                                    // Delete the contact
                                     dbReference.child(String.valueOf(finalIndex)).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {

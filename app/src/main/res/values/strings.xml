@@ -26,7 +26,9 @@
     <string name="add_contact">Add A Contact</string>
     <string name="add">Add</string>
     <string name="cancel">Cancel</string>
-    <string name="edit_contact">Edit A Contact</string>
+    <string name="edit_contact">Edit Contact</string>
+    <string name="edit_a_contact">Edit A Contact</string>
     <string name="change_default_contact">Change Default Contact</string>
     <string name="delete_contact">Delete A Contact</string>
+    <string name="apply">Apply</string>
 </resources>
