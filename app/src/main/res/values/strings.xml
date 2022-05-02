@@ -23,7 +23,10 @@
     <string name="homepage_title">Press &amp; Hold for 3 seconds</string>
     <string name="s_o_s">S.O.S</string>
     <string name="button">Button</string>
-    <string name="add_contact">Add Contact</string>
+    <string name="add_contact">Add A Contact</string>
     <string name="add">Add</string>
     <string name="cancel">Cancel</string>
+    <string name="edit_contact">Edit A Contact</string>
+    <string name="change_default_contact">Change Default Contact</string>
+    <string name="delete_contact">Delete A Contact</string>
 </resources>

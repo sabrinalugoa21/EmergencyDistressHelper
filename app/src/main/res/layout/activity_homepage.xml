@@ -48,7 +48,7 @@
         android:gravity="center|bottom">
 
         <Button
-            android:id="@+id/btn_show_add_contact_page"
+            android:id="@+id/btn_show_contacts_page"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_alignParentTop="true"
