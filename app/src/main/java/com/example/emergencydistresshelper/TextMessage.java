@@ -25,7 +25,7 @@ public class TextMessage {
 
     private static String toNumber = "";
     private static String messageBody = "EDH - Twilio SOS Button";
-    private static String default_index = "1000";
+    private static String default_index = "none";
     private static String Result = "ERROR! Alert not sent!";
 
     private static FirebaseUser user;
@@ -37,7 +37,7 @@ public class TextMessage {
             return Result;
         }
 
-        if (default_index.equals("1000")){
+        if (toNumber.length() < 9){
             Result = "ERROR! No Default Contact!";
             return Result;
         }
@@ -88,10 +88,19 @@ public class TextMessage {
                 if (snapshot.hasChild("defaultContactIndex")){
                     default_index = snapshot.child("defaultContactIndex").getValue(String.class);
                     Log.d("default_index: ", default_index);
-                    toNumber = "+1" + snapshot.child("Contacts/" + default_index + "/phoneNumber").getValue(String.class);
-                    Log.d("toNumber: ", toNumber);
-                    messageBody = snapshot.child("Contacts/" + default_index + "/message").getValue(String.class);
-                    Log.d("messageBody: ", messageBody);
+                    if (snapshot.hasChild("Contacts/" + default_index)){
+                        toNumber = "+1" + snapshot.child("Contacts/" + default_index + "/phoneNumber").getValue(String.class);
+                        Log.d("toNumber: ", toNumber);
+                        messageBody = snapshot.child("Contacts/" + default_index + "/message").getValue(String.class);
+                        Log.d("messageBody: ", messageBody);
+                    }
+                    else {
+                        toNumber = "none";
+                        Log.d("toNumber: ", toNumber);
+                        messageBody = "empty";
+                        Log.d("messageBody: ", messageBody);
+                        Log.d("----update", "no default Contact number");
+                    }
                 }
                 else{
                     Log.d("----update", "no defaultContactIndex");
