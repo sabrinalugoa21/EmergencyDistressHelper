@@ -31,4 +31,7 @@
     <string name="change_default_contact">Change Default Contact</string>
     <string name="delete_contact">Delete A Contact</string>
     <string name="apply">Apply</string>
+    <string name="phone">Phone</string>
+    <string name="current_default_contact">Current Default Contact</string>
+    <string name="home">Home</string>
 </resources>
