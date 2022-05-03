@@ -29,12 +29,17 @@ class Login : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_login)
 
         val loginToreg = findViewById<Button>(R.id.loginToreg)
+        var resetPwd = findViewById<Button>(R.id.resetpwd)
 
         loginToreg.setOnClickListener  {
             val intent = Intent(this, Register::class.java)
             startActivity(intent)
         }
 
+        resetPwd.setOnClickListener {
+            val intent = Intent(this, UpdateUser::class.java)
+            startActivity(intent)
+        }
         mAuth = FirebaseAuth.getInstance()
         signinUser = findViewById<View>(R.id.signIn) as Button
         signinUser!!.setOnClickListener(this)

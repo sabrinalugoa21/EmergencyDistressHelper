@@ -10,6 +10,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.emergencydistresshelper.Login;
+import com.example.emergencydistresshelper.R;
+import com.example.emergencydistresshelper.User;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,7 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Register extends AppCompatActivity implements View.OnClickListener{
     private TextView banner, registerUser;
-    private EditText editTextFullName, editTextUsername, editTextEmail, editTextPassword;
+    private EditText editTextFullName, editTextEmail, editTextPassword;
     private ProgressBar progressbar;
     private FirebaseAuth mAuth;
 
@@ -41,7 +48,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         registerUser.setOnClickListener(this);
 
         editTextFullName = (EditText) findViewById(R.id.et_name);
-        editTextUsername = (EditText) findViewById(R.id.et_username);
         editTextEmail = (EditText) findViewById(R.id.et_email);
         editTextPassword = (EditText) findViewById(R.id.et_password);
 
@@ -55,10 +61,12 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         switch(v.getId())
         {
             case R.id.tv_logo:
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, Login.class));
+                progressbar.setVisibility(View.GONE);
                 break;
             case R.id.btn_register:
                 registerUser();
+                progressbar.setVisibility(View.GONE);
                 break;
 
         }
@@ -68,7 +76,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
     {
         String fullName = editTextFullName.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
-        String username = editTextUsername.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
         if(fullName.isEmpty())
@@ -81,13 +88,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         {
             editTextEmail.setError("Email is required!");
             editTextEmail.requestFocus();
-            return;
-        }
-
-        if(username.isEmpty())
-        {
-            editTextUsername.setError("Age is required!");
-            editTextUsername.requestFocus();
             return;
         }
 
@@ -120,32 +120,53 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                     {
                         if(task.isSuccessful())
                         {
-                            User user = new User(fullName, email, username);
+                            User user = new User(fullName, email);
+
+
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        
+
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful())
                                     {
-                                        Toast.makeText(Register.this, "Registered sucessfully!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(Register.this, "Registered successfully!", Toast.LENGTH_LONG).show();
                                         progressbar.setVisibility(View.GONE);
                                         startActivity(new Intent(Register.this, Login.class));
                                     }
                                     else
                                     {
-                                        Toast.makeText(Register.this, "Registeration failed!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(Register.this, "Something went wrong with registration. Try again.", Toast.LENGTH_LONG).show();
                                         progressbar.setVisibility(View.GONE);
                                     }
+
                                 }
                             });
 
                         }
-                        else
+                        if(!task.isSuccessful())
                         {
-                            Toast.makeText(Register.this, "Registeration failed!", Toast.LENGTH_LONG).show();
-                            progressbar.setVisibility(View.GONE);
+                            if (task.getException() instanceof FirebaseAuthUserCollisionException)
+                            {
+                                Toast.makeText(Register.this, "User exists with email. Please login. ", Toast.LENGTH_LONG).show();
+                                progressbar.setVisibility(View.GONE);
+                            }
+                            else if (task.getException() instanceof FirebaseAuthInvalidCredentialsException)
+                            {
+                                Toast.makeText(Register.this, "Use email with valid form. ", Toast.LENGTH_LONG).show();
+                                progressbar.setVisibility(View.GONE);
+                            }
+                            else if (task.getException() instanceof FirebaseAuthWeakPasswordException)
+                            {
+                                Toast.makeText(Register.this, "Use a stronger password.  ", Toast.LENGTH_LONG).show();
+                                progressbar.setVisibility(View.GONE);
+                            }
+                            else
+                            {
+                                Toast.makeText(Register.this, "Registration failed!", Toast.LENGTH_LONG).show();
+                                progressbar.setVisibility(View.GONE);
+                            }
                         }
                     }
                 });

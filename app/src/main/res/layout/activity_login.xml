@@ -70,7 +70,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/loginToreg"
-        android:layout_width="wrap_content"
+        android:layout_width="206dp"
         android:layout_height="48dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="false"
@@ -80,6 +80,20 @@
         android:background="?android:attr/selectableItemBackground"
         android:fontFamily="@font/roboto_regular"
         android:text="don't have an account?"
+        android:textColor="@android:color/black" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/resetpwd"
+        android:layout_width="203dp"
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="false"
+        android:layout_marginLeft="93dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="25dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:fontFamily="@font/roboto_regular"
+        android:text="Password change"
         android:textColor="@android:color/black" />
 
     <ProgressBar

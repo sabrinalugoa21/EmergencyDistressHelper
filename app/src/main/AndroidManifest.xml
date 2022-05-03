@@ -43,7 +43,10 @@
             android:name=".Register"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
-
+        <activity
+            android:name=".UpdateUser"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar" />
         <service
             android:name=".Homepage"
             android:foregroundServiceType="location"
