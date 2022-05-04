@@ -127,11 +127,17 @@ public class Contacts extends AppCompatActivity implements View.OnClickListener{
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String index = snapshot.child("defaultContactIndex").getValue(String.class);
-                defaultContact.setText(snapshot
-                        .child("Contacts")
-                        .child(index)
-                        .child("name")
-                        .getValue(String.class));
+
+                if (index != null) {
+                    defaultContact.setText(snapshot
+                            .child("Contacts")
+                            .child(index)
+                            .child("name")
+                            .getValue(String.class));
+                } else {
+                    // User does not have any contacts
+                    defaultContact.setText("N/A");
+                }
             }
 
             @Override

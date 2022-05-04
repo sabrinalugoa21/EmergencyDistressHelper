@@ -34,4 +34,5 @@
     <string name="phone">Phone</string>
     <string name="current_default_contact">Current Default Contact</string>
     <string name="home">Home</string>
+    <string name="full_name_case_sensitive">Full Name (case sensitive)</string>
 </resources>
