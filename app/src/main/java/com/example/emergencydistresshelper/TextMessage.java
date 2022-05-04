@@ -32,20 +32,27 @@ public class TextMessage {
     private static DatabaseReference dbReference;
 
     public static String sendTextMessage(Double Latitude, Double Longitude) {
+        //checking if Auth Token is there to send texts
         if (AUTH_TOKEN.length() < 25){
             Result = "ERROR! Invalid Auth Token!";
             return Result;
         }
-
+        //Checking if a valid number was updated
         if (toNumber.length() < 9){
             Result = "ERROR! No Default Contact!";
             return Result;
         }
+        //checking if a valid location was updated
+        if (Latitude != 0.0 && Longitude != 0.0){
+            messageBody = messageBody +
+                    "\n\nLatitude: " + Latitude +
+                    "\nLongitude: " + Longitude;
+        }
+        else{
+            messageBody = messageBody + "\n\nUser has not enabled location data";
+        }
 
-        messageBody = messageBody +
-                "\nLatitude: " + Latitude +
-                "\nLongitude: " + Longitude;
-
+        //http request for message to be sent
         OkHttpClient client = new OkHttpClient();
         String url = "https://api.twilio.com/2010-04-01/Accounts/" + ACCOUNT_SID + "/SMS/Messages";
         String base64EncodedCredentials = "Basic " +
