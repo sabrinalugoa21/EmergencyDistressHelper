@@ -71,7 +71,6 @@ public class CreateContact extends AppCompatActivity implements View.OnClickList
             // Add the contact, then navigate to the contacts page.
             case R.id.btn_add_contact:
                 addContact();
-                startActivity(new Intent(this, Contacts.class));
                 break;
         }
     }
@@ -145,6 +144,7 @@ public class CreateContact extends AppCompatActivity implements View.OnClickList
                             Toast.makeText(CreateContact.this, "Failed to add the contact.", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(CreateContact.this, "Successfully added contact!", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(CreateContact.this, Contacts.class));
                         }
                     }
                 });
