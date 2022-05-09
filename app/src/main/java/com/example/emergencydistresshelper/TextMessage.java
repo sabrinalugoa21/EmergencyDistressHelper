@@ -42,6 +42,7 @@ public class TextMessage {
             Result = "ERROR! No Default Contact!";
             return Result;
         }
+        String original_message = messageBody;
         //checking if a valid location was updated
         if (Latitude != 0.0 && Longitude != 0.0){
             messageBody = messageBody +
@@ -78,6 +79,7 @@ public class TextMessage {
             return Result;
         }
         Result = "Success! Alert was sent!";
+        messageBody = original_message;
         return Result;
     }
 
