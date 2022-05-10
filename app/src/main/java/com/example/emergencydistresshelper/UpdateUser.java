@@ -1,6 +1,7 @@
 package com.example.emergencydistresshelper;
 
 import android.content.Intent;
+import android.content.pm.LabeledIntent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -13,6 +14,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -58,19 +63,19 @@ public class UpdateUser extends AppCompatActivity implements View.OnClickListene
                 }
 
                 if (old_password.isEmpty()) {
-                    binding.oldPassword.setError("Old password is required!");
+                    binding.oldPassword.setError("Password is required!");
                     binding.oldPassword.requestFocus();
                     return;
                 }
 
                 if (new_password.isEmpty()) {
-                    binding.password.setError("New Password is required!");
+                    binding.password.setError("Please enter new password!");
                     binding.password.requestFocus();
                     return;
                 }
 
                 if (re_password.isEmpty()) {
-                    binding.repassword.setError("New Password is required!");
+                    binding.repassword.setError("Please re-enter new password!");
                     binding.repassword.requestFocus();
                     return;
                 }
@@ -98,6 +103,12 @@ public class UpdateUser extends AppCompatActivity implements View.OnClickListene
                     binding.repassword.requestFocus();
                     return;
                 }
+
+                if(!new_password.equals(re_password))
+                {
+                    Toast.makeText(UpdateUser.this, "Passwords do not match!", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 updateAuth(email, old_password, new_password);
                 break;
 
@@ -107,6 +118,16 @@ public class UpdateUser extends AppCompatActivity implements View.OnClickListene
 
     private void updateAuth(String email, String old_password, String password) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+/*
+        if (user == null) {
+
+            Toast.makeText(UpdateUser.this, "User may not exist or information entered is incorrect. ", Toast.LENGTH_LONG).show();
+            finish();
+            overridePendingTransition(0, 0);
+            startActivity(new Intent(UpdateUser.this, UpdateUser.class));
+            overridePendingTransition(0, 0);
+
+       */
         AuthCredential credential = EmailAuthProvider
                 .getCredential(email, old_password);
 
@@ -114,22 +135,37 @@ public class UpdateUser extends AppCompatActivity implements View.OnClickListene
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
+                        if (task.isSuccessful())
+                        {
                             user.updatePassword(password).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(UpdateUser.this, "Password successfully changed! ", Toast.LENGTH_LONG).show();
                                         startActivity(new Intent(UpdateUser.this, Login.class));
-                                    } else {
+                                    }
+                                    else
+                                    {
                                         Toast.makeText(UpdateUser.this, "Password did not change. Try again! ", Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });
-                        } else {
+                        }
+                        if (!task.isSuccessful())
+                        {
+                            if (task.getException() instanceof FirebaseAuthInvalidUserException)
+                                Toast.makeText(UpdateUser.this, "User does not exist. ", Toast.LENGTH_LONG).show();
+                            else if (task.getException() instanceof FirebaseAuthInvalidCredentialsException)
+                                Toast.makeText(UpdateUser.this, "User does not exist. ", Toast.LENGTH_LONG).show();
+                            else
+                                Toast.makeText(UpdateUser.this, "User does not exist. ", Toast.LENGTH_LONG).show();
+                        }
+                        else
+                        {
                             Toast.makeText(UpdateUser.this, "Password did not change. Try again! ", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
+
     }
 }

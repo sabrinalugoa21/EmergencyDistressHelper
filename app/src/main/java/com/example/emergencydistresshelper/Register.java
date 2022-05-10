@@ -28,7 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Register extends AppCompatActivity implements View.OnClickListener{
     private TextView banner, registerUser;
-    private EditText editTextFullName, editTextEmail, editTextPassword;
+    private EditText editTextFullName, editTextEmail, editTextPassword, editTextRePassword;
     private ProgressBar progressbar;
     private FirebaseAuth mAuth;
 
@@ -50,6 +50,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         editTextFullName = (EditText) findViewById(R.id.et_name);
         editTextEmail = (EditText) findViewById(R.id.et_email);
         editTextPassword = (EditText) findViewById(R.id.et_password);
+        editTextRePassword = (EditText) findViewById(R.id.et_repassword);
 
         progressbar = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -77,6 +78,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         String fullName = editTextFullName.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+        String repassword = editTextRePassword.getText().toString().trim();
+
 
         if(fullName.isEmpty())
         {
@@ -111,6 +114,34 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
             editTextPassword.requestFocus();
             return;
         }
+        if(password.isEmpty())
+        {
+            editTextPassword.setError("Password is required!");
+            editTextPassword.requestFocus();
+            return;
+        }
+        if(repassword.isEmpty())
+        {
+            editTextPassword.setError("Please re-enter password!");
+            editTextPassword.requestFocus();
+            return;
+        }
+
+        if(repassword.length() < 6)
+        {
+            editTextRePassword.setError("Minimum password length is 6 characters!");
+            editTextRePassword.requestFocus();
+            return;
+        }
+
+        if(!password.equals(repassword))
+        {
+            Toast.makeText(Register.this, "Passwords do not match!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+
+
 
         progressbar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email,password)
@@ -120,6 +151,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                     {
                         if(task.isSuccessful())
                         {
+                            
                             User user = new User(fullName, email);
 
 
@@ -166,8 +198,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                             {
                                 Toast.makeText(Register.this, "Registration failed!", Toast.LENGTH_LONG).show();
                                 progressbar.setVisibility(View.GONE);
-                            }
-                        }
+                            } }
                     }
                 });
     }
