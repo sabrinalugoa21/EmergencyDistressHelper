@@ -28,7 +28,7 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/et_custom"
         android:fontFamily="@font/roboto_regular"
-        android:hint="@string/your_name"
+        android:hint="@string/full_name_case_sensitive"
         android:inputType="textPersonName"
         android:padding="15dp"
         android:textSize="15sp" />

@@ -37,7 +37,7 @@ import java.util.Map;
 
 public class Contacts extends AppCompatActivity implements View.OnClickListener{
 
-    private TextView textViewName, textViewPhone, textViewMessage;
+    private TextView defaultContact, textViewName, textViewPhone, textViewMessage;
     private TextView homeButton;
     private FirebaseUser user;
     private DatabaseReference dbReference;
@@ -73,6 +73,7 @@ public class Contacts extends AppCompatActivity implements View.OnClickListener{
 
         updateContactsList();
 
+        defaultContact = findViewById(R.id.current_default_text);
 
         cardView1 = findViewById(R.id.base_cardview1);
         arrow1 = findViewById(R.id.arrow_button1);
@@ -119,6 +120,31 @@ public class Contacts extends AppCompatActivity implements View.OnClickListener{
                 deleteContact();
                 break;
         }
+    }
+
+    public void updateDefaultContactLabel() {
+        dbReference.getParent().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String index = snapshot.child("defaultContactIndex").getValue(String.class);
+
+                if (index != null) {
+                    defaultContact.setText(snapshot
+                            .child("Contacts")
+                            .child(index)
+                            .child("name")
+                            .getValue(String.class));
+                } else {
+                    // User does not have any contacts
+                    defaultContact.setText("N/A");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("Log", "Failed to get snapshot for parent of dbReference");
+            }
+        });
     }
 
 
@@ -203,22 +229,21 @@ public class Contacts extends AppCompatActivity implements View.OnClickListener{
             public void onClick(DialogInterface dialog, int which) {
                 m_Text = input.getText().toString();
 
-                // Search the database for the contact the user wants to delete
+                // Search the database for the contact the user wants to set as default
                 dbReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Contact contact;
-                        int index = 0;
+                        String index = "";
                         boolean foundMatch = false;
 
                         // Find the index of the contact which matches user input
                         for (DataSnapshot ds: snapshot.getChildren()) {
                             contact = ds.getValue(Contact.class);
                             if (contact.getName().equals(m_Text)) {
+                                index = ds.getKey();
                                 foundMatch = true;
                                 break;
-                            } else {
-                                index++;
                             }
                         }
 
@@ -230,7 +255,7 @@ public class Contacts extends AppCompatActivity implements View.OnClickListener{
 
                         // Update the defaultContactIndex value in the database
                         HashMap<String, Object> update = new HashMap<>();
-                        update.put("defaultContactIndex", String.valueOf(index));
+                        update.put("defaultContactIndex", index);
 
                         dbReference.getParent().updateChildren(update, new DatabaseReference.CompletionListener() {
                             @Override
@@ -389,6 +414,7 @@ public class Contacts extends AppCompatActivity implements View.OnClickListener{
             makeContactRows();
         });
         updateContactFields();
+        updateDefaultContactLabel();
     }
 
 
@@ -417,10 +443,22 @@ public class Contacts extends AppCompatActivity implements View.OnClickListener{
 
         for (long i = 0; i < numOfContacts; i++) {
             LinearLayout childLL = new LinearLayout(this);
-            LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
+            childLL.setWeightSum(10);
+            LinearLayout.LayoutParams nameP = new LinearLayout.LayoutParams(
+                    0,
                     LinearLayout.LayoutParams.WRAP_CONTENT,
-                    1f);
+                    2);
+            nameP.setMargins(0, 10, 0, 10);
+            LinearLayout.LayoutParams phoneP = new LinearLayout.LayoutParams(
+                    0,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    3);
+            phoneP.setMargins(0, 10, 0, 10);
+            LinearLayout.LayoutParams messageP = new LinearLayout.LayoutParams(
+                    0,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    5);
+            messageP.setMargins(0, 15, 0, 15);
             int id;
 
             TextView textName = new TextView(this);
@@ -428,27 +466,24 @@ public class Contacts extends AppCompatActivity implements View.OnClickListener{
             id = View.generateViewId();
             textName.setId(id);
             hashtable.put("Name" + i, id);
-            textName.setLayoutParams(p);
+            textName.setLayoutParams(nameP);
             childLL.addView(textName);
-            Log.d("Testing", "ID of 'Name" + i + "': " + hashtable.get("Name" + i));
 
             TextView textPhone = new TextView(this);
             textPhone.setText("Phone" + i);
             id = View.generateViewId();
             textPhone.setId(id);
             hashtable.put("Phone" + i, id);
-            textPhone.setLayoutParams(p);
+            textPhone.setLayoutParams(phoneP);
             childLL.addView(textPhone);
-            Log.d("Testing", "ID of 'Phone" + i + "': " + hashtable.get("Phone" + i));
 
             TextView textMessage = new TextView(this);
             textMessage.setText("Messsage" + i);
             id = View.generateViewId();
             textMessage.setId(id);
             hashtable.put("Message" + i, id);
-            textMessage.setLayoutParams(p);
+            textMessage.setLayoutParams(messageP);
             childLL.addView(textMessage);
-            Log.d("Testing", "ID of 'Message" + i + "': " + hashtable.get("Message" + i));
 
             contactsListLL.addView(childLL);
         }
