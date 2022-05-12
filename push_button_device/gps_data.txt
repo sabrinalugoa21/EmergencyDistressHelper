@@ -1,0 +1,4 @@
+Latitude: 99.99 
+Longitude: 99.99 
+Fix quality: 2
+Fix timestamp: 5/9/2022 21:01:14
